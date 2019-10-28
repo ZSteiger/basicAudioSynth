@@ -25,18 +25,93 @@ namespace audioSynth
 
 		private void BasicSynthesizer_KeyDown(object sender, KeyEventArgs e)
 		{
+			Random random = new Random();
 			// Samples stored into an array
 			short[] wave = new short[SAMPLE_RATE];
 			// need to convert into binary wave to be read
 			byte[] binaryWave = new byte[SAMPLE_RATE * sizeof(short)];
 			// Example frequency for testing
-			float frequency = 220f;
+			float frequency;
+			switch (e.KeyCode)
+			{
+				case Keys.Z:
+					frequency = 65.4f;
+					break;
+				case Keys.X:
+					frequency = 138.59f;
+					break;
+				case Keys.C:
+					frequency = 261.62f;
+					break;
+				case Keys.V:
+					frequency = 523.25f;
+					break;
+				case Keys.B:
+					frequency = 1046.5f;
+					break;
+				case Keys.N:
+					frequency = 2093f;
+					break;
+				case Keys.M:
+					frequency = 4186.01f;
+					break;
+				default:
+					return;
+			}
 			/*
 				Sin Loop. Sample = Amplitude * sin(t * i) where t is angular frequency, i is unit of time 
 			*/
-			for (int i = 0; i < SAMPLE_RATE; i++)
+			foreach (Oscillator oscillator in this.Controls.OfType<Oscillator>())
 			{
-				wave[i] = Convert.ToInt16(short.MaxValue * Math.Sin(((Math.PI * 2 * frequency) / SAMPLE_RATE) * i));
+				int samplesPerWaveLength = (int)(SAMPLE_RATE / frequency);
+				short ampStep = (short)((short.MaxValue * 2) / samplesPerWaveLength);
+				short tempSample;
+
+				switch (oscillator.WaveForm)
+				{
+					case WaveForm.Sine:
+						for (int i = 0; i < SAMPLE_RATE; i++)
+						{
+							wave[i] = Convert.ToInt16(short.MaxValue * Math.Sin(((Math.PI * 2 * frequency) / SAMPLE_RATE) * i));
+						}
+						break;
+					case WaveForm.Square:
+						for (int i = 0; i < SAMPLE_RATE; i++)
+						{
+							wave[i] = Convert.ToInt16(short.MaxValue * Math.Sign(Math.Sin((Math.PI * 2 * frequency) / SAMPLE_RATE * i)));
+						}
+						break;
+					case WaveForm.Saw:
+						for (int i = 0; i < SAMPLE_RATE; i++)
+						{
+							tempSample = -short.MaxValue;
+							for (int j = 0; j < samplesPerWaveLength && i < SAMPLE_RATE; j++)
+							{
+								tempSample += ampStep;
+								wave[i++] = Convert.ToInt16(tempSample);
+							}
+							i--;
+						}
+						break;
+					case WaveForm.Triangle:
+						tempSample = -short.MaxValue;
+						for (int i = 0; i < SAMPLE_RATE; i++)
+						{
+							if (Math.Abs(tempSample + ampStep) > short.MaxValue)
+							{
+								ampStep = (short)-ampStep;
+							}
+							tempSample += ampStep;
+							wave[i] = Convert.ToInt16(tempSample);
+						}
+						break;
+					case WaveForm.Noise:
+						for (int i = 0; i < SAMPLE_RATE; i++)
+						{
+							wave[i] = (short)random.Next(-short.MaxValue, short.MaxValue);
+						}
+						break;
+				}
 			}
 			//split each short into 2 bytes and write them into the binary wave
 			Buffer.BlockCopy(wave, 0, binaryWave, 0, wave.Length * sizeof(short));
@@ -69,7 +144,7 @@ namespace audioSynth
 	}
 
 	public enum WaveForm
-	{ 
+	{
 		Sine, Square, Saw, Triangle, Noise
- }
+	}
 }

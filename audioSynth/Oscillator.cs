@@ -17,6 +17,7 @@ namespace audioSynth
 				Name = "Sine",
 				Location = new Point(10, 15),
 				Text = "Sine",
+				BackColor = Color.Yellow
 			});
 			this.Controls.Add(new Button()
 			{
@@ -55,8 +56,13 @@ namespace audioSynth
 		{
 			Button button = (Button)sender;
 			this.WaveForm = (WaveForm)Enum.Parse(typeof(WaveForm), button.Text);
-			MessageBox.Show($"The button you pressed was {this.WaveForm}");
-  }
+			foreach (Button otherButtons in this.Controls.OfType<Button>())
+			{
+				otherButtons.UseVisualStyleBackColor = true;
+			}
+			button.BackColor = Color.Yellow;
+
+		}
 	}
 
 }
