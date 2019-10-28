@@ -1,0 +1,10 @@
+C:\Users\zstei\Desktop\Coding\audioSynth\audioSynth\bin\Debug\audioSynth.exe.config
+C:\Users\zstei\Desktop\Coding\audioSynth\audioSynth\bin\Debug\audioSynth.exe
+C:\Users\zstei\Desktop\Coding\audioSynth\audioSynth\bin\Debug\audioSynth.pdb
+C:\Users\zstei\Desktop\Coding\audioSynth\audioSynth\obj\Debug\audioSynth.csprojAssemblyReference.cache
+C:\Users\zstei\Desktop\Coding\audioSynth\audioSynth\obj\Debug\audioSynth.BasicSynthesizer.resources
+C:\Users\zstei\Desktop\Coding\audioSynth\audioSynth\obj\Debug\audioSynth.Properties.Resources.resources
+C:\Users\zstei\Desktop\Coding\audioSynth\audioSynth\obj\Debug\audioSynth.csproj.GenerateResource.cache
+C:\Users\zstei\Desktop\Coding\audioSynth\audioSynth\obj\Debug\audioSynth.csproj.CoreCompileInputs.cache
+C:\Users\zstei\Desktop\Coding\audioSynth\audioSynth\obj\Debug\audioSynth.exe
+C:\Users\zstei\Desktop\Coding\audioSynth\audioSynth\obj\Debug\audioSynth.pdb
