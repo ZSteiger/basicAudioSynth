@@ -52,6 +52,9 @@
     <Compile Include="BasicSynthesizer.Designer.cs">
       <DependentUpon>BasicSynthesizer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Oscillator.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="BasicSynthesizer.resx">
